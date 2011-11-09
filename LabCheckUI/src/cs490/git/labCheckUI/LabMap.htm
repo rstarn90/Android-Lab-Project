@@ -1,0 +1,422 @@
+
+
+
+
+
+
+
+<!--
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<!-- Dynamic TLT computer lab availability webpage collaboratively developed by Michael Jordan and Bret Madsen -->
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="/icsWeb/css/style.css" type="text/css">
+<link rel="stylesheet" href="/icsWeb/css/ui.css" type="text/css">
+<title>ITaP Lab Map</title>
+</head>
+
+
+<style type="text/css">
+	v\:* {
+		behavior:url(#default#VML);
+	}
+	.style1 {font-size: 30px}
+</style>
+
+<script src="http://maps.google.com/maps?file=api&v=2&key=null" type="text/javascript"></script>
+<script type="text/javascript">
+	//<![CDATA[
+
+	function loadarray() {
+		// This function should load the lab availability and location data into a two dimensional array
+		// The array should be called 'maparray' with location maparray[0][0] containing the length of the array
+		// The rest of the array should be filled with building information starting with array location maparray[1][0] 
+		// maparray[i][0] contains the name of the Building
+		// maparray[i][1] contains the longitude coordinate
+		// maparray[i][2] contains the latitude coordinate
+		// maparray[i][3] contains the percent of total computers available in the lab containing the most available computers for the lab
+		// maparray[i][4] contains the HTML content of the notes field
+		// the notes field should be formatted in the following manner with the items in {brackets} replaced with data:
+		// {Lab Name} <br> {# of available Win PCs} out of {Total # of Win PCs} Windows Computers <br>
+		// {# of available Macs} out of {Total # of Macs} Macintosh Computers <br>
+		// {# of available Sun PCs} out of {Total # of Sun PCs} Sun Computers <br>
+		// For buildings with multiple computer labs, the array record for that building should be modified in the following method
+		// If the Availability is greater in the second lab than the first lab, replace the availability element, if not leave the element
+		// The notes element should be appended with the next lab's information
+		// Only Labs with buildings having coordinates should be entered into the array
+		// If a lab is closed or has a class in session the availability for that lab is zero
+	
+        //define maparry, replace the array length with the correct # of buildings plus 1 for the length element
+		var maplength = 19 + 1;
+		var maparray= new Array(maplength);
+		maparray[0]=new Array(5);
+		//records the length of the array (number of locations) in to the first array location
+		maparray[0][0]=maplength;
+
+
+			maparray[1] = new Array(5);
+			maparray[1][0] = "GRIS";
+			maparray[1][1] = -86.910805;
+			maparray[1][2] = 40.426353;
+			maparray[1][3] = 0.23809524;
+			maparray[1][4] = "<b><a href=LabInfo?building=GRIS&room=121>GRIS 121</a></b><br><font size=-2>2 of 9 Windows 7 Enterprise SP1 stations available</font><br><br><b><a href=LabInfo?building=GRIS&room=120>GRIS 120</a></b><br><font size=-2>5 of 21 Windows 7 Enterprise SP1 stations available</font><br>";
+
+			maparray[2] = new Array(5);
+			maparray[2][0] = "IAF";
+			maparray[2][1] = -86.91685;
+			maparray[2][2] = 40.4341;
+			maparray[2][3] = 0.79452056;
+			maparray[2][4] = "<b><a href=LabInfo?building=IAF&room=201>IAF 201</a></b><br><font size=-2>54 of 69 Windows 7 Enterprise SP1 stations available</font><br><font size=-2>4 of 4 Mac OS X 10.6.8  stations available</font><br>";
+
+			maparray[3] = new Array(5);
+			maparray[3][0] = "CIVL";
+			maparray[3][1] = -86.91471;
+			maparray[3][2] = 40.430008;
+			maparray[3][3] = 0.12;
+			maparray[3][4] = "<b><a href=LabInfo?building=CIVL&room=2215>CIVL 2215</a></b><br><font size=-2>CLOSED</font><br><br><b><a href=LabInfo?building=CIVL&room=3144>CIVL 3144</a></b><br><font size=-2>6 of 48 Windows 7 Enterprise SP1 stations available</font><br><font size=-2>0 of 2 Mac OS X 10.6.8  stations available</font><br>";
+
+			maparray[4] = new Array(5);
+			maparray[4][0] = "ENAD";
+			maparray[4][1] = -86.91334;
+			maparray[4][2] = 40.42779;
+			maparray[4][3] = 0.0;
+			maparray[4][4] = "<b><a href=LabInfo?building=ENAD&room=138>ENAD 138</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=ENAD&room=135>ENAD 135</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=ENAD&room=130>ENAD 130</a></b><br><font size=-2>Class in Session</font><br>";
+
+			maparray[5] = new Array(5);
+			maparray[5][0] = "WTHR";
+			maparray[5][1] = -86.913055;
+			maparray[5][2] = 40.426395;
+			maparray[5][3] = 0.0625;
+			maparray[5][4] = "<b><a href=LabInfo?building=WTHR&room=214>WTHR 214</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=WTHR&room=212>WTHR 212</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=WTHR&room=114>WTHR 114</a></b><br><font size=-2>3 of 48 Windows 7 Enterprise SP1 stations available</font><br><br><b><a href=LabInfo?building=WTHR&room=307>WTHR 307</a></b><br><font size=-2>CLOSED</font><br>";
+
+			maparray[6] = new Array(5);
+			maparray[6][0] = "HEAV";
+			maparray[6][1] = -86.91183;
+			maparray[6][2] = 40.42635;
+			maparray[6][3] = 0.0;	
+			maparray[6][4] = "<b><a href=LabInfo?building=HEAV&room=227>HEAV 227</a></b><br><font size=-2>Class in Session</font><br>";
+
+			maparray[7] = new Array(5);
+			maparray[7][0] = "BRNG";
+			maparray[7][1] = -86.91633;
+			maparray[7][2] = 40.42543;
+			maparray[7][3] = 0.58064514;
+			maparray[7][4] = "<b><a href=LabInfo?building=BRNG&room=B286>BRNG B286</a></b><br><font size=-2>18 of 31 Windows 7 Enterprise SP1 stations available</font><br><br><b><a href=LabInfo?building=BRNG&room=B282>BRNG B282</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=BRNG&room=B280>BRNG B280</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=BRNG&room=B275>BRNG B275</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=BRNG&room=B274>BRNG B274</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=BRNG&room=B291>BRNG B291</a></b><br><font size=-2>Class in Session</font><br>";
+
+			maparray[8] = new Array(5);
+			maparray[8][0] = "PHYS";
+			maparray[8][1] = -86.91336;
+			maparray[8][2] = 40.429813;
+			maparray[8][3] = 0.0;
+			maparray[8][4] = "<b><a href=LabInfo?building=PHYS&room=026>PHYS 026</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=PHYS&room=022>PHYS 022</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=PHYS&room=117>PHYS 117</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=PHYS&room=116>PHYS 116</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=PHYS&room=014>PHYS 014</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=PHYS&room=290>PHYS 290</a></b><br><font size=-2>CLOSED</font><br>";
+
+			maparray[9] = new Array(5);
+			maparray[9][0] = "LYNN";
+			maparray[9][1] = -86.91473;
+			maparray[9][2] = 40.420086;
+			maparray[9][3] = 0.95238096;
+			maparray[9][4] = "<b><a href=LabInfo?building=LYNN&room=2121>LYNN 2121</a></b><br><font size=-2>15 of 21 Windows 7 Enterprise SP1 stations available</font><br><br><b><a href=LabInfo?building=LYNN&room=2133>LYNN 2133</a></b><br><font size=-2>20 of 21 Windows 7 Enterprise SP1 stations available</font><br>";
+
+			maparray[10] = new Array(5);
+			maparray[10][0] = "MRDH";
+			maparray[10][1] = -86.923386;
+			maparray[10][2] = 40.42625;
+			maparray[10][3] = 0.78571427;
+			maparray[10][4] = "<b><a href=LabInfo?building=MRDH&room=146S>MRDH 146S</a></b><br><font size=-2>11 of 14 Windows 7 Enterprise SP1 stations available</font><br>";
+
+			maparray[11] = new Array(5);
+			maparray[11][0] = "STEW";
+			maparray[11][1] = -86.91276;
+			maparray[11][2] = 40.424915;
+			maparray[11][3] = 0.11111111;
+			maparray[11][4] = "<b><a href=LabInfo?building=STEW&room=142>STEW 142</a></b><br><font size=-2>CLOSED</font><br><br><b><a href=LabInfo?building=STEW&room=135>STEW 135</a></b><br><font size=-2>CLOSED</font><br><br><b><a href=LabInfo?building=STEW&room=102>STEW 102</a></b><br><font size=-2>6 of 60 Windows 7 Enterprise SP1 stations available</font><br><font size=-2>1 of 3 Mac OS X 10.6.8  stations available</font><br>";
+
+			maparray[12] = new Array(5);
+			maparray[12][0] = "MATH";
+			maparray[12][1] = -86.9158;
+			maparray[12][2] = 40.426346;
+			maparray[12][3] = 0.21212122;
+			maparray[12][4] = "<b><a href=LabInfo?building=MATH&room=B010>MATH B010</a></b><br><font size=-2>5 of 27 Windows 7 Enterprise SP1 stations available</font><br><font size=-2>0 of 2 Windows XP stations available</font><br><font size=-2>0 of 1 unknown stations available</font><br><font size=-2>2 of 3 Mac OS X 10.6.8  stations available</font><br><br><b><a href=LabInfo?building=MATH&room=311>MATH 311</a></b><br><font size=-2>CLOSED</font><br>";
+
+			maparray[13] = new Array(5);
+			maparray[13][0] = "MTHW";
+			maparray[13][1] = -86.91638;
+			maparray[13][2] = 40.424725;
+			maparray[13][3] = 0.054347824;
+			maparray[13][4] = "<b><a href=LabInfo?building=MTHW&room=116>MTHW 116</a></b><br><font size=-2>4 of 83 Windows 7 Enterprise SP1 stations available</font><br><font size=-2>1 of 9 Mac OS X 10.6.8  stations available</font><br><br><b><a href=LabInfo?building=MTHW&room=301>MTHW 301</a></b><br><font size=-2>Class in Session</font><br>";
+
+			maparray[14] = new Array(5);
+			maparray[14][0] = "MCUT";
+			maparray[14][1] = -86.92805;
+			maparray[14][2] = 40.42508;
+			maparray[14][3] = 0.7;
+			maparray[14][4] = "<b><a href=LabInfo?building=MCUT&room=C216>MCUT C216</a></b><br><font size=-2>14 of 20 Windows 7 Enterprise SP1 stations available</font><br>";
+
+			maparray[15] = new Array(5);
+			maparray[15][0] = "LILY";
+			maparray[15][1] = -86.917946;
+			maparray[15][2] = 40.423702;
+			maparray[15][3] = 0.0;
+			maparray[15][4] = "<b><a href=LabInfo?building=LILY&room=G428>LILY G428</a></b><br><font size=-2>CLOSED</font><br><br><b><a href=LabInfo?building=LILY&room=2400>LILY 2400</a></b><br><font size=-2>CLOSED</font><br>";
+
+			maparray[16] = new Array(5);
+			maparray[16][0] = "RHPH";
+			maparray[16][1] = -86.91592;
+			maparray[16][2] = 40.429825;
+			maparray[16][3] = 0.0;
+			maparray[16][4] = "<b><a href=LabInfo?building=RHPH&room=272>RHPH 272</a></b><br><font size=-2>CLOSED</font><br><br><b><a href=LabInfo?building=RHPH&room=316>RHPH 316</a></b><br><font size=-2>Class in Session</font><br>";
+
+			maparray[17] = new Array(5);
+			maparray[17][0] = "SC";
+			maparray[17][1] = -86.91439;
+			maparray[17][2] = 40.42648;
+			maparray[17][3] = 0.0;
+			maparray[17][4] = "<b><a href=LabInfo?building=SC&room=283>SC 283</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=SC&room=G046>SC G046</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=SC&room=189>SC 189</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=SC&room=183>SC 183</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=SC&room=246>SC 246</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=SC&room=277>SC 277</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=SC&room=179>SC 179</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=SC&room=231>SC 231</a></b><br><font size=-2>Class in Session</font><br><br><b><a href=LabInfo?building=SC&room=289>SC 289</a></b><br><font size=-2>Class in Session</font><br>";
+
+			maparray[18] = new Array(5);
+			maparray[18][0] = "HIKS";
+			maparray[18][1] = -86.91267;
+			maparray[18][2] = 40.42459;
+			maparray[18][3] = 0.020833334;
+			maparray[18][4] = "<b><a href=LabInfo?building=HIKS&room=G959>HIKS G959</a></b><br><font size=-2>CLOSED</font><br><br><b><a href=LabInfo?building=HIKS&room=G950>HIKS G950</a></b><br><font size=-2>CLOSED</font><br><br><b><a href=LabInfo?building=HIKS&room=B853>HIKS B853</a></b><br><font size=-2>0 of 28 Windows 7 Enterprise SP1 stations available</font><br><font size=-2>1 of 20 Mac OS X 10.6.8  stations available</font><br>";
+
+			maparray[19] = new Array(5);
+			maparray[19][0] = "BCC";
+			maparray[19][1] = -86.91957;
+			maparray[19][2] = 40.42758;
+			maparray[19][3] = 0.75;
+			maparray[19][4] = "<b><a href=LabInfo?building=BCC&room=204>BCC 204</a></b><br><font size=-2>14 of 19 Windows 7 Enterprise SP1 stations available</font><br><font size=-2>1 of 1 Mac OS X 10.6.8  stations available</font><br>";
+
+
+		return maparray;
+	}
+
+	//Generate the GoogleMap based on Array Contents
+	function GoogleMap (maparray) {
+		// Center the map on Campus
+		var map = new GMap(document.getElementById("map"));
+		map.addControl(new GSmallMapControl());
+		map.addControl(new GMapTypeControl());
+		map.centerAndZoom(new GPoint(-86.915000, 40.427500), 2);
+
+		for (var i = 1; i < maparray[0][0]; i++) {
+			var point = new GPoint(parseFloat(maparray[i][1]),parseFloat(maparray[i][2]));
+			var pmarker = createMarker(point, maparray[i][0], maparray[i][3], maparray[i][4]);
+			map.addOverlay(pmarker);
+		}
+		return map;
+	}
+        
+	//create the actual marker in GoogleMap
+	function createMarker(point, name, available, info) {
+ 		// Create green push pin icon
+ 		//original icon size was 37,42
+		var green_icon = new GIcon();
+		green_icon.image = "image/green_Pushpin.png";
+		green_icon.shadow = "image/grey_Pushpin.png";
+		green_icon.iconSize = new GSize(28, 32);
+		green_icon.shadowSize = new GSize(28, 32);
+		green_icon.iconAnchor = new GPoint(4, 31);
+		green_icon.infoWindowAnchor = new GPoint(20, 10);
+
+		// Create yellow push pin icon
+		var yellow_icon = new GIcon();
+		yellow_icon.image = "image/yellow_Pushpin.png";
+		yellow_icon.shadow = "image/grey_Pushpin.png";
+		yellow_icon.iconSize = new GSize(28, 32);
+		yellow_icon.shadowSize = new GSize(28, 32);
+		yellow_icon.iconAnchor = new GPoint(4, 31);
+		yellow_icon.infoWindowAnchor = new GPoint(20, 10);
+
+		// Create red push pin icon
+		var red_icon = new GIcon();
+		red_icon.image = "image/red_Pushpin.png";
+		red_icon.shadow = "image/grey_Pushpin.png";
+		red_icon.iconSize = new GSize(28, 32);
+		red_icon.shadowSize = new GSize(28, 32);
+		red_icon.iconAnchor = new GPoint(4, 31);
+		red_icon.infoWindowAnchor = new GPoint(20, 10);
+
+		//The following if statements set the color of the icon to be green for availability greater than 50%, yellow for 25%-50%, and red for <25% 
+		if (available >= 0.50) {
+			var marker = new GMarker(point,green_icon);
+		}else if (available >= 0.25) {
+			var marker = new GMarker(point,yellow_icon);
+		} else {
+			var marker = new GMarker(point,red_icon);
+		}
+			
+        // Show this marker's index in the info window when it is clicked
+		GEvent.addListener(marker, "click", function() {
+			marker.openInfoWindowHtml("<div><font size=2><nobr>" + info + "</nobr></font></div>");
+			//alert(window.location.host);
+		});
+
+		return marker;
+	}
+
+	function onLoad() {
+		// Read data into array
+		var maparray=loadarray();
+		// Use array data to process and display map
+		var map=GoogleMap(maparray);
+		map.setMapType(G_HYBRID_TYPE);
+	}     
+</script>
+
+<body onload="onLoad()"  bgcolor="#e0d5c5" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
+
+
+
+
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="49%" background="/icsWeb/image/header/banner_span_l.gif"></td>
+    <td width="750">
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+          <td rowspan="4" valign="top"><img src="/icsWeb/image/header/banner_left.gif" alt="Purdue University" width="320" height="74"></td>
+		  <td valign="top"><img src="/icsWeb/image/header/banner_ct.gif" alt=" " width="86" height="20" border="0"></td>
+		  <td valign="top"><a href="http://www.itap.purdue.edu/"><img src="/icsWeb/image/header/banner_main.gif" alt="ITaP Main Page" width="55" height="20" border="0"></a></td>
+		  <td valign="top"><a href="http://www.itap.purdue.edu/people/"><img src="/icsWeb/image/header/banner_people.gif" alt="People" width="66" height="20" border="0"></a></td>
+		  <td valign="top"><a href="http://www.itap.purdue.edu/itap_main/help/"><img src="/icsWeb/image/header/banner_help.gif" alt="Help" width="52" height="20" border="0"></a></td>
+		  <td valign="top"><a href="http://www.itap.purdue.edu/itap_main/sitemap/"><img src="/icsWeb/image/header/banner_map.gif" alt="Site Map" width="68" height="20" border="0"></a></td>
+		  <td rowspan="2" valign="top"><img src="/icsWeb/image/header/banner_itap_t.gif" alt="ITaP Logo" width="103" height="43"></td>
+  </tr>
+  <tr><td valign="top"><img src="/icsWeb/image/header/banner_cc.gif" alt=" " width="86" height="23" border="0"></td><td colspan="4" valign="top"><img src="/icsWeb/image/header/banner_c.gif" alt=" " width="241" height="23"></td></tr>
+  <tr><form name="seek1" method=GET action="http://index.cc.purdue.edu:8765/query.html"><td colspan="6" align="left" valign="top" bgcolor="#FFFFFF">
+    <input type="hidden" name="col" value="pumerge"><input type="hidden" name="ht" value="0"><input type="hidden" name="qc" value=""><input type="hidden" name="pw" value="100%"><input type="hidden" name="ws" value="0"><input type="hidden" name="la" value=""><input type="hidden" name="qm" value="0"><input type="hidden" name="st" value="1">
+<input type="hidden" name="nh" value="10"><input type="hidden" name="lk" value="1"><input type="hidden" name="rf" value="0"><input type="hidden" name="oq" value=""><input type="hidden" name="rq" value="0"><input type="hidden" name="si" value="0">
+<!-- query prefix (qp) variable can be set on multiple lines for readability, but can get too long for buffer -->
+<input type="hidden" name="qp" value="url:www.itap.purdue.edu"><input type="hidden" name="qp" value="site:directory.purdue.edu"><input type="hidden" name="qp" value="site:labinfo.cc.purdue.edu"><input type="hidden" name="qp" value="site:www-rcd.cc.purdue.edu"><input type="hidden" name="qp" value="site:www.adpc.purdue.edu">
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <input type="image" border="0" src="/icsWeb/image/header/banner_button.gif" width="21" height="22" name="seek" value="search">
+          </td>
+          <td>
+            <input type="text" name="qt" size="25" value="Search Word or Phrase" maxlength="1991" class="txtFieldMain" onFocus="if (this.value=='Search Word or Phrase') {this.value='';} else { this.select(); }" onBlur="if (this.value=='' || this.value==' ') { this.value='Search Word or Phrase';}"><input type="hidden" name="qs" value="">
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td align="right"><img src="/icsWeb/image/header/banner_itap_l.gif" align="top" alt="ITaP Logo" width="140" height="30"></td>
+  </tr>
+</table>
+</td></form>
+    </tr>
+	<tr>
+	<td colspan="6" bgcolor="#666666">
+	  <img src="/icsWeb/image/header/banner_btm.gif" width="4" height="1"></td>
+	</tr>
+</table>
+</td>
+    <td width="49%" background="/icsWeb/image/header/banner_span_r.gif"></td>
+  </tr>
+</table>
+<div align="center"></div>
+<div align="right"></div>
+<div align="center"></div>
+<table width="760" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td width="5" rowspan="2"><img src="/icsWeb/image/pixelshim_clear.gif" width="5" height="1"></td>
+    <td width="1" bgcolor="#666666"><img src="/icsWeb/image/pixelshim_clear.gif" width="1" height="1"></td>
+    <td width="648"><table width="748" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+        <tr> 
+          <td valign="top">
+		<table width="748" height="400" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+		<td valign="top" bgcolor="#ffffff">
+			<table width="100%" border="0" align="center" cellpadding="5" cellspacing="0">
+				<tr><td valign="top" bgcolor="#ffffff">
+
+<table class="breadcrumbtable" width="100%" border="0" cellspacing="0">
+	<tr> 
+		<td class="breadcrumblinks" align="left" valign="top">
+			&nbsp;
+			<a class="breadcrumblinks" href="http://www.itap.purdue.edu">ITaP Main</a> > 
+			<a class="breadcrumblinks" href="http://www.itap.purdue.edu/tlt">Teaching & Learning Technologies</a> >
+			Lab Information
+		</td>
+	</tr>
+</table>
+
+<img src="/icsWeb/image/title_tlt.gif" alt="Teaching and Learning Technologies" name="title_Graphic" height="35" id="title_Graphic">
+
+
+<div class="wrapperAll">
+	<div align="center">
+		<h1 align="center" class="pageTitle style0">TLT Lab Availability by Building Location</h1>
+	</div>
+	<div id="map" style="width: 750px; height: 500px"></div>
+	<div id="message"></div>
+</div>
+
+<br>
+<font face='arial' size='2'>
+This map has been dynamically generated using Google Maps and real-time ITaP lab availability information.
+Selecting a pushpin will display specific information about the labs in the building with the lab title hyperlinked to provide more details about that lab.
+<br><br> 
+<img src="image/green_Pushpin.png"> Greater than 50% of machines are available.<br>
+<img src="image/yellow_Pushpin.png"> Between 25% and 50% of machines are available.<br>
+<img src="image/red_Pushpin.png"> Less than 25% or none of the machines are available.<br>
+</font>
+<br>
+
+
+</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+</tr>
+      </table>
+
+	</td>
+    	<td width="1" bgcolor="#666666">
+		<img src="/icsWeb/image/pixelshim_clear.gif" width="1" height="1">
+	</td>
+    	<td width="5" rowspan="2">
+		<img src="/icsWeb/image/pixelshim_clear.gif" width="5" height="1">
+	</td>
+  </tr>
+
+  <tr valign="top" bgcolor="#FFFFFF"> 
+    <td colspan="3"> 
+     <table width="750" border="0" cellspacing="0" cellpadding="0">
+	  <tr>
+	  	<td><img src="/icsWeb/image/footer/footer_l.gif" alt=" " width="5" height="32"></td>
+	  	<td valign="middle" bgcolor="#FFFFFF"><div align="center" class="purdueLinks"><a href="http://www.purdue.edu">Purdue Homepage</a> | <a href="http://index.cc.purdue.edu:8765/">Purdue Search</a> | <a href="http://news.uns.purdue.edu/newsweb.maps.html">Campus Maps</a> | <a href="http://directory.purdue.edu/ph-query.html">Purdue Directories</a></div></td>
+		<td width="336" rowspan="2" valign="middle" bgcolor="#FFFFFF" background="/icsWeb/image/footer/footer_r.gif">
+			<p align="right"><span class="smallText">Send inquiries or comments to: <a href="mailto:itap@purdue.edu">itap@purdue.edu</a></span> &nbsp;</p>
+		</td>
+	  </tr>
+	  <tr>
+	    <td colspan="2"><img src="/icsWeb/image/footer/footer_b.gif" alt=" " width="414" height="4"></td>
+	  </tr>
+	  </table>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+<span class="smallText">
+Copyright &copy; 2004-2011, Purdue University, all rights reserved. An equal access/equal opportunity university.<br>
+If you have trouble accessing this page because of a disability, please contact the ITaP Customer Service Center at 765-494-4000.
+</span>
+</p>
+
+</body>
+</html>
+
